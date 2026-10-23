@@ -26,6 +26,7 @@ jobs:
         with:
           global-json-file: backend/global.json
       - run: dotnet tool install --global dotnet-ef --version 10.0.13
+      - run: dotnet restore SmartDrive.slnx
       - name: Add migration
         env:
           NAME: ${{ inputs.name }}
