@@ -34,6 +34,18 @@ public class SmartDriveDbContext(DbContextOptions<SmartDriveDbContext> options)
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(SmartDriveDbContext).Assembly);
+
+        // Domain entities create their own Guid keys. Telling EF the keys are never generated means a new
+        // child added through a navigation (for example a status change appended to a tracked booking)
+        // is inserted, rather than mistaken for an existing row and updated.
+        foreach (var entity in builder.Model.GetEntityTypes().Where(e => e.ClrType.Namespace?.StartsWith("SmartDrive.Domain", StringComparison.Ordinal) == true))
+        {
+            var key = entity.FindPrimaryKey();
+            if (key is { Properties.Count: 1 } && key.Properties[0].ClrType == typeof(Guid))
+            {
+                key.Properties[0].ValueGenerated = Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.Never;
+            }
+        }
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configuration)

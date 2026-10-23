@@ -129,9 +129,9 @@ public sealed class BookingService(
     /// </summary>
     public async Task<BookingDetailDto> PaySimulatedAsync(string reference, Guid userId, string idempotencyKey, bool simulateFailure, CancellationToken ct)
     {
-        if (string.IsNullOrWhiteSpace(idempotencyKey) || idempotencyKey.Length > 80)
+        if (string.IsNullOrWhiteSpace(idempotencyKey) || idempotencyKey.Length > 100)
         {
-            throw new DomainException("payment.idempotency_key", "An Idempotency-Key header (up to 80 characters) is required.");
+            throw new DomainException("payment.idempotency_key", "An Idempotency-Key header (up to 100 characters) is required.");
         }
 
         var booking = await LoadOwnedAsync(reference, userId, ct);

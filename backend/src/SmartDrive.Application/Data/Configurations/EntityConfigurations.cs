@@ -156,7 +156,7 @@ internal sealed class PaymentTransactionConfiguration : IEntityTypeConfiguration
         b.Property(p => p.Currency).HasMaxLength(3).IsRequired();
         b.Property(p => p.Provider).HasMaxLength(40).IsRequired();
         b.Property(p => p.ProviderReference).HasMaxLength(80).IsRequired();
-        b.Property(p => p.IdempotencyKey).HasMaxLength(80).IsRequired();
+        b.Property(p => p.IdempotencyKey).HasMaxLength(100).IsRequired();
 
         // The same idempotency key can never record two transactions.
         b.HasIndex(p => p.IdempotencyKey).IsUnique();

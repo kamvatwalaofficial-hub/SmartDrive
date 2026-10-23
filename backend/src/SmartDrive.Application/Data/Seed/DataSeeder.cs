@@ -316,6 +316,12 @@ public sealed class DataSeeder(
             var gapDays = Math.Max(0, (int)Math.Round(Exponential(2.6 / Math.Max(0.15, demand))));
             var pickupLocal = SouthAfricanTime.ToLocal(cursor).Date.AddDays(gapDays).AddHours(rng.Next(7, 13)).AddMinutes(rng.Next(0, 4) * 15);
             var pickup = DateTime.SpecifyKind(pickupLocal - SouthAfricanTime.Offset, DateTimeKind.Utc);
+            while (pickup < cursor)
+            {
+                // A same-day slot can fall before the vehicle is back and prepared; move to the next day.
+                pickup = pickup.AddDays(1);
+            }
+
             var days = RentalLength(plan.Seed.Category);
             var ret = pickup.AddDays(days).AddHours(rng.Next(-2, 3));
             if (ret <= pickup.AddHours(4))

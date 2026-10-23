@@ -16,7 +16,7 @@ public sealed class ApiWorkflowTests(ApiFactory factory) : IClassFixture<ApiFact
     private static readonly JsonSerializerOptions Json = ApiFactory.Json;
 
     private static DateTimeOffset LocalDay(int daysFromNow, int hour) =>
-        new DateTimeOffset(DateTime.UtcNow.Date.AddDays(daysFromNow).AddHours(hour), TimeSpan.FromHours(2));
+        new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow.Date.AddDays(daysFromNow).AddHours(hour), DateTimeKind.Unspecified), TimeSpan.FromHours(2));
 
     // ------------------------------------------------------------------ public
 
