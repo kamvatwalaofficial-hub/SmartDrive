@@ -20,7 +20,7 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: backend/global.json
@@ -58,7 +58,7 @@ jobs:
     env:
       SMARTDRIVE_DESIGN_CONNECTION: Server=localhost,1433;Database=SmartDriveCi;User Id=sa;Password=CI-Only-Password-123;TrustServerCertificate=True
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: backend/global.json
@@ -76,7 +76,7 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -103,7 +103,7 @@ jobs:
       DEMO_ADMIN_PASSWORD: E2e-Admin-Pass-1
       DEMO_CUSTOMER_PASSWORD: E2e-Customer-Pass-1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: backend/global.json
