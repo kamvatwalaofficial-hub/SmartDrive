@@ -72,7 +72,6 @@ jobs:
   frontend:
     name: Frontend (lint, type-check, tests, build)
     runs-on: ubuntu-latest
-    if: ${{ hashFiles('frontend/package.json') != '' }}
     defaults:
       run:
         working-directory: frontend
@@ -98,7 +97,7 @@ jobs:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://localhost:5080
       Database__Provider: Sqlite
-      ConnectionStrings__SmartDrive: Data Source=${{ runner.temp }}/smartdrive-e2e.db
+      ConnectionStrings__SmartDrive: Data Source=/tmp/smartdrive-e2e.db
       Seed__AdminPassword: E2e-Admin-Pass-1
       Seed__CustomerPassword: E2e-Customer-Pass-1
       DEMO_ADMIN_PASSWORD: E2e-Admin-Pass-1
