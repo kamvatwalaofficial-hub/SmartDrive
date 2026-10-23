@@ -21,7 +21,7 @@ jobs:
         working-directory: backend
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
       - name: Restore
@@ -59,7 +59,7 @@ jobs:
       SMARTDRIVE_DESIGN_CONNECTION: Server=localhost,1433;Database=SmartDriveCi;User Id=sa;Password=CI-Only-Password-123;TrustServerCertificate=True
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
       - name: Install dotnet-ef
@@ -104,7 +104,7 @@ jobs:
       DEMO_CUSTOMER_PASSWORD: E2e-Customer-Pass-1
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
       - uses: actions/setup-node@v4
