@@ -463,3 +463,7 @@ public sealed record UpdateCustomerStatusRequest(bool IsActive);
 public sealed record UpdateRoleRequest(string Role, bool Grant);
 
 public sealed record AuditLogDto(long Id, string? UserEmail, string Action, string EntityType, string EntityId, string? Details, DateTimeOffset CreatedAt);
+
+public sealed record ContactMessageDto(Guid Id, string Name, string Email, string Subject, string Message, bool IsHandled, DateTimeOffset CreatedAt);
+
+public sealed record UpdateMessageRequest(bool IsHandled);

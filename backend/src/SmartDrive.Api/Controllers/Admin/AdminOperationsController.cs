@@ -57,6 +57,19 @@ public sealed class AdminCustomersController(CustomerAdminService customers) : A
     public Task<AdminCustomerDto> SetRole(Guid id, UpdateRoleRequest request, CancellationToken ct) =>
         customers.SetRoleAsync(id, request.Role, request.Grant, UserId, ct);
 
+    /// <summary>Messages sent through the public contact form.</summary>
+    [HttpGet("messages")]
+    public Task<PagedResult<ContactMessageDto>> Messages([FromQuery] bool? handled, [FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken ct = default) =>
+        customers.MessagesAsync(handled, page, pageSize, ct);
+
+    [HttpPatch("messages/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> UpdateMessage(Guid id, UpdateMessageRequest request, CancellationToken ct)
+    {
+        await customers.SetMessageHandledAsync(id, request.IsHandled, UserId, ct);
+        return NoContent();
+    }
+
     [HttpGet("audit-log")]
     public Task<PagedResult<AuditLogDto>> AuditLog(
         [FromQuery] string? action, [FromQuery] string? entityType, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, CancellationToken ct = default) =>

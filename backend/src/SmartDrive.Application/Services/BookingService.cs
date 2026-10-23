@@ -194,7 +194,7 @@ public sealed class BookingService(
         vehicle.BookingVersion++; // a second, concurrent payment for this booking will now fail
         audit.Write(userId, "payment.simulated", nameof(Booking), booking.Reference, new { transaction.Amount, transaction.ProviderReference });
         notifier.Notify(booking.CustomerId, "Booking confirmed",
-            $"Your {vehicle.DisplayName} is booked for {Format(booking.PickupAt)} ({booking.Reference}).", $"/account/bookings/{booking.Reference}");
+            $"Your {vehicle.DisplayName} is booked for {Format(booking.PickupAt)} ({booking.Reference}).", $"/bookings/{booking.Reference}");
 
         await SaveWithConcurrencyGuardAsync("This booking is already being paid for. Please refresh to see its status.", ct);
         return await DetailAsync(reference, userId, isAdmin: false, ct);
@@ -393,7 +393,7 @@ public sealed class BookingService(
         vehicle.BookingVersion++;
         audit.Write(adminId, $"booking.{target.ToString().ToLowerInvariant()}", nameof(Booking), booking.Reference, new { req.Reason, req.OdometerKm });
         notifier.Notify(booking.CustomerId, $"Booking {target.ToString().ToLowerInvariant()}",
-            $"Your booking {booking.Reference} is now {target.ToString().ToLowerInvariant()}.", $"/account/bookings/{booking.Reference}");
+            $"Your booking {booking.Reference} is now {target.ToString().ToLowerInvariant()}.", $"/bookings/{booking.Reference}");
 
         await SaveWithConcurrencyGuardAsync("This booking changed while it was being updated. Please refresh and try again.", ct);
         return await DetailAsync(reference, adminId, isAdmin: true, ct);
@@ -538,7 +538,7 @@ public sealed class BookingService(
         notifier.Notify(booking.CustomerId, target == BookingStatus.Rejected ? "Booking rejected" : "Booking cancelled",
             refund > 0 ? $"{booking.Reference} was cancelled. A simulated refund of {Money.Format(refund)} has been recorded."
                        : $"{booking.Reference} was cancelled.",
-            $"/account/bookings/{booking.Reference}");
+            $"/bookings/{booking.Reference}");
     }
 
     private void Transition(Booking booking, BookingStatus target, Guid actorId, string? reason)

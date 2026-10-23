@@ -152,6 +152,29 @@ public sealed class CustomerAdminService(
         return new PagedResult<AuditLogDto>(items, page, pageSize, total);
     }
 
+    public async Task<PagedResult<ContactMessageDto>> MessagesAsync(bool? handled, int page, int pageSize, CancellationToken ct)
+    {
+        (page, pageSize) = Paging.Normalise(page, pageSize);
+        var query = db.ContactMessages.AsNoTracking().AsQueryable();
+        if (handled is not null)
+        {
+            query = query.Where(m => m.IsHandled == handled);
+        }
+
+        var total = await query.CountAsync(ct);
+        var rows = await query.OrderByDescending(m => m.CreatedAt).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(ct);
+        var items = rows.Select(m => new ContactMessageDto(m.Id, m.Name, m.Email, m.Subject, m.Message, m.IsHandled, Mapping.Local(m.CreatedAt))).ToList();
+        return new PagedResult<ContactMessageDto>(items, page, pageSize, total);
+    }
+
+    public async Task SetMessageHandledAsync(Guid id, bool handled, Guid adminId, CancellationToken ct)
+    {
+        var message = await db.ContactMessages.FirstOrDefaultAsync(m => m.Id == id, ct) ?? throw DomainException.NotFound("Message");
+        message.IsHandled = handled;
+        audit.Write(adminId, handled ? "message.handled" : "message.reopened", "ContactMessage", id.ToString());
+        await db.SaveChangesAsync(ct);
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private async Task<int> ActiveAdminCountAsync(CancellationToken ct)
