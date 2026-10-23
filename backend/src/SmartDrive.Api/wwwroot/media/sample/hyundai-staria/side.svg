@@ -21,7 +21,5 @@
   <circle cx="205" cy="300" r="44" fill="#111827"/><circle cx="205" cy="300" r="27.28" fill="#9ca3af"/><circle cx="205" cy="300" r="7.92" fill="#374151"/>
   <circle cx="600" cy="300" r="44" fill="#111827"/><circle cx="600" cy="300" r="27.28" fill="#9ca3af"/><circle cx="600" cy="300" r="7.92" fill="#374151"/>
 
-  <text x="28" y="40" fill="#e2e8f0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="600">2023 Hyundai Staria 2.2D Executive 9-seater</text>
-  <text x="28" y="64" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14">Side view</text>
   <text x="776" y="432" text-anchor="end" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13">Illustration · sample media</text>
 </svg>

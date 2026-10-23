@@ -288,8 +288,8 @@ function MatchCard({ match: m, rank, query }: { match: RecommendedVehicle; rank?
   return (
     <article className="card overflow-hidden">
       <div className="grid gap-0 md:grid-cols-[220px_1fr_250px]">
-        <div className="relative bg-sand-100">
-          {m.vehicle.imageUrl && <img src={mediaUrl(m.vehicle.imageUrl)} alt={m.vehicle.imageAlt ?? m.vehicle.displayName} className="h-full max-h-56 w-full object-cover md:max-h-none" loading="lazy" />}
+        <div className="relative flex items-center bg-ink-900">
+          {m.vehicle.imageUrl && <img src={mediaUrl(m.vehicle.imageUrl)} alt={m.vehicle.imageAlt ?? m.vehicle.displayName} className="aspect-[16/9] w-full object-cover" loading="lazy" />}
           {rank && <span className="absolute left-3 top-3 grid size-8 place-items-center rounded-full bg-ink-900 text-sm font-extrabold text-amber-400">#{rank}</span>}
         </div>
         <div className="p-5">
