@@ -2,7 +2,7 @@
 
 Screenshots are produced by the end-to-end job in CI (`.github/workflows/ci.yml` → *End-to-end smoke test and screenshots*) from a fresh, seeded SQLite instance, so they always show the current build and only sample data.
 
-To get them: open the latest successful CI run → **Artifacts** → `screenshots`. To regenerate locally, see [testing](../testing.md#running-the-end-to-end-smoke-test-locally); files are written to this folder.
+The copies in this folder come from the `ci/screenshots` branch, which CI refreshes on every push to `main` (they are also attached to each run as the `screenshots` artifact). To regenerate locally, see [testing](../testing.md#running-the-end-to-end-smoke-test-locally); files are written to this folder.
 
 | File | Shows |
 |---|---|

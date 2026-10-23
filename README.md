@@ -75,7 +75,18 @@ For SQL Server, Docker, configuration and secrets, see **[docs/setup.md](docs/se
 
 ## Screenshots
 
-Screenshots are captured automatically by the end-to-end job in CI against the seeded demo (download the `screenshots` artifact from a workflow run). See [docs/screenshots](docs/screenshots/README.md).
+Captured automatically by the end-to-end job in CI against the seeded demo — all data shown is sample data. More in [docs/screenshots](docs/screenshots/README.md).
+
+| | |
+|---|---|
+| ![Home page with quick booking search](docs/screenshots/01-home.png) | ![Vehicle page with server-calculated quote](docs/screenshots/03-vehicle.png) |
+| **Home** — quick search by branch and dates | **Vehicle** — gallery and a server-priced quote |
+| ![Recommendation wizard results with score breakdown](docs/screenshots/06-wizard-results.png) | ![Booking with simulated payment](docs/screenshots/08-payment.png) |
+| **Recommendations** — reasons, trade-offs and score breakdown | **Booking** — 30-minute hold and clearly simulated payment |
+| ![Admin operations dashboard](docs/screenshots/10-admin-dashboard.png) | ![Smart Insights findings with evidence and limitations](docs/screenshots/11-insights.png) |
+| **Admin dashboard** | **Smart Insights** — evidence, confidence and limitations |
+| ![Demand forecast compared with a baseline](docs/screenshots/15-forecast.png) | ![Mobile layout](docs/screenshots/19-mobile-home.png) |
+| **Forecast** — chosen by back-test against a baseline | **Mobile** |
 
 ## Project layout
 

@@ -20,8 +20,8 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
       - name: Restore
@@ -68,8 +68,8 @@ jobs:
     env:
       SMARTDRIVE_DESIGN_CONNECTION: Server=localhost,1433;Database=SmartDriveCi;User Id=sa;Password=CI-Only-Password-123;TrustServerCertificate=True
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
       - name: Install dotnet-ef
@@ -88,8 +88,8 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -118,11 +118,11 @@ jobs:
       DEMO_ADMIN_PASSWORD: E2e-Admin-Pass-1
       DEMO_CUSTOMER_PASSWORD: E2e-Customer-Pass-1
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           global-json-file: backend/global.json
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -162,7 +162,7 @@ jobs:
         run: |
           tail -n 200 ${{ runner.temp }}/api.log
           grep -E '"LogLevel":"(Error|Critical)"|fail:|Exception' ${{ runner.temp }}/api.log | cut -c1-600 | tail -n 8 | while IFS= read -r l; do echo "::error title=API log::$l"; done
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: screenshots
