@@ -15,7 +15,6 @@ public sealed class FleetAdminService(
     CatalogService catalog,
     IMediaStorage storage,
     MediaStorageOptions storageOptions,
-    RentalPolicy policy,
     TimeProvider clock,
     AuditWriter audit)
 {

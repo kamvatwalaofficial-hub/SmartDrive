@@ -88,7 +88,7 @@ public sealed class ServiceSet(SmartDriveDbContext db, FixedClock clock, RentalP
 
     public FleetAdminService Fleet => new(db, Availability, Catalog,
         new LocalMediaStorage(new MediaStorageOptions { RootPath = Path.Combine(Path.GetTempPath(), "smartdrive-test-media") }),
-        new MediaStorageOptions(), Policy, clock, new AuditWriter(db, clock));
+        new MediaStorageOptions(), clock, new AuditWriter(db, clock));
 
     public AnalyticsService Analytics => new(db, Availability, Fleet, clock);
 
