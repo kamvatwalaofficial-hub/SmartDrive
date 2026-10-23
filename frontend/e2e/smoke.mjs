@@ -13,6 +13,15 @@ if (!customer.password || !admin.password) throw new Error('Set DEMO_CUSTOMER_PA
 await mkdir(out, { recursive: true })
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {})
 const problems = []
+const inCi = !!process.env.GITHUB_ACTIONS
+const report = (message) => console.error(inCi ? `::error title=Smoke test::${message.replace(/\n/g, '%0A')}` : message)
+let step = 'start'
+const onFatal = (e) => {
+  report(`Failed at "${step}": ${e?.message ?? e}${problems.length ? '\n' + problems.slice(0, 15).join('\n') : ''}`)
+  process.exit(1)
+}
+process.on('unhandledRejection', onFatal)
+process.on('uncaughtException', onFatal)
 
 async function newPage(width = 1366, height = 900) {
   const page = await browser.newPage({ viewport: { width, height }, timezoneId: 'Africa/Johannesburg', locale: 'en-ZA' })
@@ -23,6 +32,7 @@ async function newPage(width = 1366, height = 900) {
 }
 
 async function shot(page, name) {
+  step = `after ${name}`
   await page.waitForLoadState('networkidle')
   await page.screenshot({ path: `${out}/${name}.png`, fullPage: false })
   console.log(`✓ ${name}`)
@@ -117,7 +127,7 @@ await mobile.close()
 
 await browser.close()
 if (problems.length) {
-  console.error('Problems found:\n' + problems.join('\n'))
+  report('Problems found:\n' + problems.slice(0, 30).join('\n'))
   process.exit(1)
 }
 console.log('Smoke test passed.')

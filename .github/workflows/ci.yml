@@ -157,7 +157,9 @@ jobs:
         run: npm run e2e
       - name: API log
         if: failure()
-        run: tail -n 200 ${{ runner.temp }}/api.log
+        run: |
+          tail -n 200 ${{ runner.temp }}/api.log
+          grep -E '"LogLevel":"(Error|Critical)"|fail:|Exception' ${{ runner.temp }}/api.log | cut -c1-600 | tail -n 8 | while IFS= read -r l; do echo "::error title=API log::$l"; done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
