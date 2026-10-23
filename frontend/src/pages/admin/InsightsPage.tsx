@@ -72,7 +72,7 @@ function Definition({ children }: { children: string }) {
   return <p className="mt-4 rounded-xl bg-sand-100 p-3 text-xs text-ink-700"><strong>Definition.</strong> {children}</p>
 }
 
-const severityTone: Record<string, string> = { high: 'border-l-rose-600', medium: 'border-l-amber-500', low: 'border-l-leaf-600', info: 'border-l-ink-400' }
+const severityTone: Record<string, string> = { warning: 'border-l-rose-600', attention: 'border-l-amber-500', info: 'border-l-ink-400' }
 
 function InsightsTab({ q }: { q: AnalyticsQuery }) {
   const r = useAsync(() => api.analytics.insights(q), [q.from, q.to, q.category])

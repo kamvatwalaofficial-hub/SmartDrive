@@ -6,7 +6,7 @@ import { api } from '../api/endpoints'
 import type { InterpretedPreferences, RecommendationRequest, RecommendationResponse, RecommendedVehicle } from '../api/types'
 import { useLocations } from '../components/TripSearch'
 import { Alert, SampleBadge, Spinner } from '../components/ui'
-import { defaultWindow, formatDateTime, humanise, isoToLocalInput, localInputToIso, mediaUrl, money } from '../lib/format'
+import { defaultWindow, formatDateTime, isoToLocalInput, localInputToIso, mediaUrl, money } from '../lib/format'
 import { tripProblem, tripQuery } from '../lib/trip'
 
 interface Prefs {
@@ -284,6 +284,7 @@ function Results({ result, prefs, onEdit }: { result: RecommendationResponse; pr
 }
 
 function MatchCard({ match: m, rank, query }: { match: RecommendedVehicle; rank?: number; query: string }) {
+  const totalWeight = m.components.reduce((sum, c) => sum + c.weight, 0) || 1
   return (
     <article className="card overflow-hidden">
       <div className="grid gap-0 md:grid-cols-[220px_1fr_250px]">
@@ -305,10 +306,11 @@ function MatchCard({ match: m, rank, query }: { match: RecommendedVehicle; rank?
         <div className="border-t border-ink-100 bg-sand-50 p-5 md:border-l md:border-t-0">
           <p className="text-xs font-bold uppercase tracking-wide text-ink-500">Match score</p>
           <p className="text-3xl font-extrabold">{m.score}<span className="text-base text-ink-400">/100</span></p>
-          <dl className="mt-3 space-y-1.5" aria-label="Score breakdown">
+          <p className="mt-2 text-[11px] text-ink-500">Factor score (0–100) × its share of the weighting</p>
+          <dl className="mt-2 space-y-1.5" aria-label="Score breakdown">
             {m.components.map((c) => (
               <div key={c.name} className="text-xs">
-                <div className="flex justify-between"><dt>{humanise(c.name)} <span className="text-ink-400">×{Math.round(c.weight * 100)}%</span></dt><dd className="font-semibold">{Math.round(c.score * 100)}</dd></div>
+                <div className="flex justify-between"><dt>{c.name} <span className="text-ink-400">· {Math.round((c.weight / totalWeight) * 100)}%</span></dt><dd className="font-semibold">{Math.round(c.score * 100)}</dd></div>
                 <div className="mt-0.5 h-1.5 overflow-hidden rounded-full bg-ink-100" aria-hidden><div className="h-full rounded-full bg-amber-500" style={{ width: `${Math.round(c.score * 100)}%` }} /></div>
               </div>
             ))}

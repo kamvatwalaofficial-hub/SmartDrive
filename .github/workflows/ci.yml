@@ -89,3 +89,57 @@ jobs:
       - run: npm test -- --run
       - run: npm run build
       - run: npm audit --omit=dev --audit-level=high
+
+  e2e:
+    name: End-to-end smoke test and screenshots
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    env:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://localhost:5080
+      Database__Provider: Sqlite
+      ConnectionStrings__SmartDrive: Data Source=${{ runner.temp }}/smartdrive-e2e.db
+      Seed__AdminPassword: E2e-Admin-Pass-1
+      Seed__CustomerPassword: E2e-Customer-Pass-1
+      DEMO_ADMIN_PASSWORD: E2e-Admin-Pass-1
+      DEMO_CUSTOMER_PASSWORD: E2e-Customer-Pass-1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: backend/global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Start the API (SQLite demo mode with sample data)
+        working-directory: backend
+        run: |
+          dotnet build src/SmartDrive.Api -c Release
+          nohup dotnet run --project src/SmartDrive.Api -c Release --no-build --no-launch-profile > ${{ runner.temp }}/api.log 2>&1 &
+          for i in $(seq 1 90); do curl -sf http://localhost:5080/health && break; sleep 2; done
+          curl -sf http://localhost:5080/health
+      - name: Build and serve the frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm run build
+          nohup npx vite preview --port 4173 --strictPort > ${{ runner.temp }}/web.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4173 > /dev/null && break; sleep 1; done
+      - name: Smoke test
+        working-directory: frontend
+        env:
+          BASE_URL: http://localhost:4173
+          SCREENSHOT_DIR: ${{ runner.temp }}/screenshots
+        run: npm run e2e
+      - name: API log
+        if: failure()
+        run: tail -n 200 ${{ runner.temp }}/api.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: ${{ runner.temp }}/screenshots
+          if-no-files-found: ignore

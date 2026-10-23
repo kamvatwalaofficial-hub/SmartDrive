@@ -8,7 +8,7 @@ export const vehicle: VehicleSummary = {
 
 export const recommendation: RecommendationResponse = {
   matches: [{
-    vehicle, score: 87, components: [{ name: 'Budget', weight: 0.3, score: 0.9 }, { name: 'Space', weight: 0.2, score: 0.8 }],
+    vehicle, score: 87, components: [{ name: 'Budget fit', weight: 25, score: 0.9 }, { name: 'Space', weight: 10, score: 0.8 }],
     reasons: ['Seats 5 — room for your 4 passengers'], tradeOffs: ['Higher daily rate than the cheapest option'], summary: 'A strong all-round fit.',
     isAvailable: true, nextAvailableFrom: null, rentalDays: 5, estimatedTotal: 3900, effectiveDailyRate: 780, isAlternative: false,
   }],

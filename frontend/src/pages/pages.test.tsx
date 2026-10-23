@@ -94,7 +94,7 @@ describe('Recommendation wizard', () => {
 
     expect(await screen.findByText('Seats 5 — room for your 4 passengers')).toBeInTheDocument()
     expect(screen.getByText('Higher daily rate than the cheapest option')).toBeInTheDocument()
-    expect(screen.getByLabelText('Score breakdown')).toHaveTextContent('Budget')
+    expect(screen.getByLabelText('Score breakdown')).toHaveTextContent('Budget fit · 71%')
     const body = vi.mocked(api.recommendations.recommend).mock.calls[0][0]
     expect(body).toMatchObject({ passengers: 4, maxDailyBudget: 600, prioritiseComfort: true })
     expect(body.pickupAt).toMatch(/\+02:00$/)
