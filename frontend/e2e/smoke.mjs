@@ -84,7 +84,12 @@ await page.locator('article h3 a').first().click()
 await page.getByRole('button', { name: 'Reserve this car' }).click()
 await page.getByRole('checkbox').check()
 await shot(page, '07-checkout')
-await page.getByRole('button', { name: /Reserve and continue/ }).click()
+const reserve = page.getByRole('button', { name: /Reserve and continue/ })
+if (await reserve.isDisabled()) {
+  const alerts = await page.locator('[role=alert], [role=status]').allInnerTexts()
+  throw new Error(`Reserve button disabled at ${page.url()} — ${alerts.join(' | ') || 'no alert shown'}`)
+}
+await reserve.click()
 await page.getByRole('button', { name: /\(simulated\)/ }).waitFor()
 await shot(page, '08-payment')
 await page.getByRole('button', { name: /\(simulated\)/ }).click()
