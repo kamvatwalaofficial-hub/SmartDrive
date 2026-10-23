@@ -64,7 +64,6 @@ def frame(title: str, body: str, view: str) -> str:
   <rect width="{W}" height="{H}" fill="url(#spot)"/>
   <rect y="352" width="{W}" height="98" fill="#09111d" opacity="0.55"/>
 {body}
-  <text x="{W - 24}" y="{H - 18}" text-anchor="end" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13">Illustration · sample media</text>
 </svg>
 """
 

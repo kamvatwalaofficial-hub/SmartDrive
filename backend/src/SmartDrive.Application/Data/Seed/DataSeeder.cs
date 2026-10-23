@@ -386,7 +386,12 @@ public sealed class DataSeeder(
     {
         var v = plan.Vehicle;
         var quote = PricingCalculator.Quote(v.DailyRate, v.DepositAmount, pickup, ret, from.City, to.City, policy);
-        var created = Min(pickup.AddDays(-rng.Next(1, 35)).AddHours(-rng.Next(0, 12)), now.AddMinutes(-rng.Next(30, 600)));
+        var created = pickup.AddDays(-rng.Next(1, 35)).AddHours(-rng.Next(0, 12));
+        if (created > now)
+        {
+            // Future rentals were booked at some point in the last three weeks, not all just now.
+            created = now.AddDays(-rng.Next(0, 21)).AddMinutes(-rng.Next(30, 600));
+        }
         if (created < v.CreatedAt)
         {
             created = v.CreatedAt;
