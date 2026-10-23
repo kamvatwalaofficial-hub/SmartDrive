@@ -38,9 +38,10 @@ jobs:
           for f in chunk_*; do [ -f "$f" ] && echo "::error title=Build diagnostics::$(paste -sd'|' "$f" | sed 's/|/ %0A/g')"; done
           exit $status
       - name: Unit tests
-        run: dotnet test --project tests/SmartDrive.UnitTests --no-build -c Release
+        run: ../.github/scripts/run-tests.sh tests/SmartDrive.UnitTests
       - name: Integration tests
-        run: dotnet test --project tests/SmartDrive.IntegrationTests --no-build -c Release
+        if: ${{ !cancelled() }}
+        run: ../.github/scripts/run-tests.sh tests/SmartDrive.IntegrationTests
       - name: Check for vulnerable packages
         run: |
           dotnet list SmartDrive.slnx package --vulnerable --include-transitive 2>&1 | tee vulnerable.txt
