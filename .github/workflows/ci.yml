@@ -74,6 +74,8 @@ jobs:
           global-json-file: backend/global.json
       - name: Install dotnet-ef
         run: dotnet tool install --global dotnet-ef --version 10.0.13
+      - name: Restore
+        run: dotnet restore SmartDrive.slnx
       - name: Fail if the model has changes without a migration
         run: dotnet ef migrations has-pending-model-changes --project src/SmartDrive.Application --startup-project src/SmartDrive.Api
       - name: Apply migrations
