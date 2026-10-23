@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="2025 BYD Dolphin Dynamic (dashboard, illustration)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e2d44"/><stop offset="0.62" stop-color="#0f1b2d"/><stop offset="1" stop-color="#0a1220"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="0.5" cy="0.35" r="0.65">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9fc3e0"/><stop offset="1" stop-color="#2b4a6b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#spot)"/>
+  <rect y="352" width="800" height="98" fill="#09111d" opacity="0.55"/>
+  <rect x="120" y="130" width="560" height="200" rx="36" fill="#111827" stroke="#1f2937" stroke-width="4"/>
+  <circle cx="290" cy="230" r="70" fill="#0b1220" stroke="#334155" stroke-width="5"/><path d="M240 260 A56 56 0 1 1 340 260" fill="none" stroke="#72c2cb" stroke-width="6"/><line x1="290" y1="230" x2="324" y2="198" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="510" cy="230" r="70" fill="#0b1220" stroke="#334155" stroke-width="5"/><path d="M460 260 A56 56 0 1 1 560 260" fill="none" stroke="#72c2cb" stroke-width="6"/><line x1="510" y1="230" x2="544" y2="198" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+  <rect x="352" y="196" width="96" height="70" rx="10" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+  <text x="400" y="240" text-anchor="middle" font-family="Arial" font-size="24" fill="#e2e8f0">0 km/h</text>
+
+  <text x="28" y="40" fill="#e2e8f0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="600">2025 BYD Dolphin Dynamic</text>
+  <text x="28" y="64" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14">Dashboard view</text>
+  <text x="776" y="432" text-anchor="end" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13">Illustration · sample media</text>
+</svg>

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Entities, enums and pure business rules. No framework or database dependencies,
+       so every rule here can be unit-tested in isolation. -->
+  <PropertyGroup>
+    <RootNamespace>SmartDrive.Domain</RootNamespace>
+  </PropertyGroup>
+</Project>

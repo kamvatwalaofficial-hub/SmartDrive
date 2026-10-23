@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SmartDrive.Domain/SmartDrive.Domain.csproj" />
+    <Project Path="src/SmartDrive.Application/SmartDrive.Application.csproj" />
+    <Project Path="src/SmartDrive.Api/SmartDrive.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SmartDrive.UnitTests/SmartDrive.UnitTests.csproj" />
+    <Project Path="tests/SmartDrive.IntegrationTests/SmartDrive.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
